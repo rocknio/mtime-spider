@@ -9,7 +9,6 @@ class MtimeSpider(scrapy.Spider):
     name = "mtime"
     allowed_domains = ["mtime.com"]
     start_urls = ["http://www.mtime.com/hotest/", ]
-    wallpaper_spider = MtimeWallpaperSpider()
 
     def parse(self, response):
         if response.status != 200:
@@ -55,16 +54,8 @@ class MtimeSpider(scrapy.Spider):
             movie_info_item['actors'] = actors_list
             yield movie_info_item
 
-            # 对每个movie，获取他的桌面图片信息
-            self.wallpaper_spider.add_url(link + "posters_and_images/wallpapers/hot.html")
-
-        # 开始爬电影桌面图片
-        self.wallpaper_spider.start_requests()
-        # 开始爬桌面图片以后，清理start_urls，用于处理下一页的电影
-        self.wallpaper_spider.reset_urls()
-
         # 处理下一页的情况
-        # next_page = soup.find(id='key_nextpage')
-        # if next_page is not None:
-        #     url = response.urljoin(next_page['href'])
-        #     yield scrapy.Request(url, self.parse)
+        next_page = soup.find(id='key_nextpage')
+        if next_page is not None:
+            url = response.urljoin(next_page['href'])
+            yield scrapy.Request(url, self.parse)

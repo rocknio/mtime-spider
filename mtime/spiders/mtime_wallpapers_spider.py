@@ -17,7 +17,15 @@ class MtimeWallpaperSpider(scrapy.Spider):
     def reset_urls(self):
         self.start_urls.clear()
 
+    def start_crawl(self):
+        if self.start_urls is not None:
+            self.start_requests()
+
     def parse(self, response):
         if response.status != 200:
             return
 
+        # 解析返回的html
+        soup = BeautifulSoup(response.body, "lxml")
+        wallpaper_list = soup.findAll('script', id='desktop')
+        print(wallpaper_list)
