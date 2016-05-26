@@ -14,6 +14,12 @@ class MtimePipeline(object):
     def __init__(self):
         self.create_movie_base_dir()
 
+    def process_item(self, item, spider):
+        if spider.name == "mtime":
+            self.deal_mtime_item(item)
+        if spider.name == "mtime_wallpapers":
+            self.deal_mtime_wallpaper_item(item)
+
     def create_movie_base_dir(self):
         if os.path.exists(self.movies_info_dir_name):
             return True
@@ -31,11 +37,13 @@ class MtimePipeline(object):
         os.mkdir(self.movies_info_dir_name + '/' + dir_name)
         return True
 
-    def process_item(self, item, spider):
-        if spider.name == "mtime":
-            if self.create_movie_dir(item['id']):
+    def deal_mtime_item(self, item):
+        if self.create_movie_dir(item['id']):
                 with open('movies_info/' + item['id'] + '/' + item['id'] + '.nfo', 'w') as file:
                     movie_info = "ranking: {}, id: {}， title: {}, link: {}, directors: {}, actors: {}\n"\
                         .format(item['ranking'], item['id'], item['title'], item['link'],
                                 item['directors'], item['actors'])
                     file.write(movie_info)
+
+    def deal_mtime_wallpaper_item(self, item):
+        pass
