@@ -2,7 +2,6 @@
 import scrapy
 from bs4 import BeautifulSoup
 from mtime.items import MtimeItem
-from mtime.spiders.mtime_wallpapers_spider import MtimeWallpaperSpider
 
 
 class MtimeSpider(scrapy.Spider):
