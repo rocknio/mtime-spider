@@ -4,6 +4,7 @@
 
 # IntelliJ project files
 .idea
-*.iml
 out
 gen
+将删除 mtime/__pycache__/
+将删除 mtime/spiders/__pycache__/
