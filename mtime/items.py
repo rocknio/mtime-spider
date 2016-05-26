@@ -22,6 +22,8 @@ class DmozItem(scrapy.Item):
 
 class MtimeItem(scrapy.Item):
     ranking = scrapy.Field()
+    id = scrapy.Field()
     title = scrapy.Field()
+    link = scrapy.Field()
     directors = scrapy.Field()
     actors = scrapy.Field()

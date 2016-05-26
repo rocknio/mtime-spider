@@ -2,12 +2,14 @@
 import scrapy
 from bs4 import BeautifulSoup
 from mtime.items import MtimeItem
+from mtime.spiders.mtime_wallpapers_spider import MtimeWallpaperSpider
 
 
 class MtimeSpider(scrapy.Spider):
     name = "mtime"
     allowed_domains = ["mtime.com"]
     start_urls = ["http://www.mtime.com/hotest/", ]
+    wallpaper_spider = MtimeWallpaperSpider()
 
     def parse(self, response):
         if response.status != 200:
@@ -37,6 +39,7 @@ class MtimeSpider(scrapy.Spider):
             title_info = movie.find("dl").find("dt").find("a")
 
             title = title_info.contents[0].strip()
+            link = title_info["href"]
             director_content = movie.find("dl").findAll("li")[0].find('a').contents[0].strip()
             actors_list = [actor.contents[0].strip() for actor in
                            movie.find("dl").findAll("li")[1].findAll('a')]
@@ -45,13 +48,23 @@ class MtimeSpider(scrapy.Spider):
 
             movie_info_item = MtimeItem()
             movie_info_item['title'] = title
+            movie_info_item['id'] = link.split('/')[-2]
+            movie_info_item['link'] = link
             movie_info_item['ranking'] = ranking
             movie_info_item['directors'] = director_content
             movie_info_item['actors'] = actors_list
             yield movie_info_item
 
+            # 对每个movie，获取他的桌面图片信息
+            self.wallpaper_spider.add_url(link + "posters_and_images/wallpapers/hot.html")
+
+        # 开始爬电影桌面图片
+        self.wallpaper_spider.start_requests()
+        # 开始爬桌面图片以后，清理start_urls，用于处理下一页的电影
+        self.wallpaper_spider.reset_urls()
+
         # 处理下一页的情况
-        next_page = soup.find(id='key_nextpage')
-        if next_page is not None:
-            url = response.urljoin(next_page['href'])
-            yield scrapy.Request(url, self.parse)
+        # next_page = soup.find(id='key_nextpage')
+        # if next_page is not None:
+        #     url = response.urljoin(next_page['href'])
+        #     yield scrapy.Request(url, self.parse)
