@@ -8,3 +8,8 @@ out
 gen
 将删除 mtime/__pycache__/
 将删除 mtime/spiders/__pycache__/
+将删除 movies_info/
+将删除 mtime/__init__.pyc
+将删除 mtime/settings.pyc
+将删除 mtime/spiders/__init__.pyc
+将删除 mtime/spiders/mtime_spider.pyc
