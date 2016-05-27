@@ -27,3 +27,9 @@ class MtimeItem(scrapy.Item):
     link = scrapy.Field()
     directors = scrapy.Field()
     actors = scrapy.Field()
+
+
+class MtimePosterItem(scrapy.Item):
+    id = scrapy.Field()
+    image_urls = scrapy.Field()
+    images = scrapy.Field()
