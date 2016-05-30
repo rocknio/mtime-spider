@@ -65,8 +65,8 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'scrapy.pipelines.images.ImagesPipeline': 1,
-   'mtime.pipelines.MtimePipeline': 300,
+    'mtime.pipelines.MtimePipeline': 200,
+    'mtime.imagespipeline.MtimeImagesPipeline': 100,
 }
 
 IMAGES_STORE = './'
