@@ -79,7 +79,7 @@ class MtimeSpider(scrapy.Spider):
             movie_info_item['directors'] = director_content
             movie_info_item['actors'] = actors_list
 
-            # 爬取movie的正式版海报
+            # 爬取movie的所有相关图片
             url = 'http://movie.mtime.com/{}/posters_and_images/posters/hot.html'.format(movie_info_item['id'])
             yield scrapy.Request(url, self.parse_movie_posters, meta={'item': movie_info_item})
 
