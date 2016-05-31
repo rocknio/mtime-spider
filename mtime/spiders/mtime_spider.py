@@ -48,7 +48,7 @@ class MtimeSpider(scrapy.Spider):
                 tag1 = ""
 
             tag2 = "num"
-            # 前三名 class 名称不一致，现判断前三名，获取不到，获取其他排名的数据
+            # 前三名 class 名称不一致，先判断前三名，获取不到，获取其他排名的数据
             try:
                 ranking = int(movie.find(attrs={"class": tag1}).contents[0])
             except Exception:
