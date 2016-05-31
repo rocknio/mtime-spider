@@ -1,0 +1,6 @@
+{
+  "name": "Mtime-spider",
+  "tagline": "时光网爬虫",
+  "body": "### Mtime-Spider.\r\n时光网热门电影爬虫\r\n\r\n**测试项目**\r\n\r\n### 功能\r\n从[http://www.mtime.com/host/](时光热度榜)爬下电影信息，下载电影相关图片\r\n\r\n### 使用工具\r\n- python3.4\r\n- scrapy\r\n- beautifulsoap\r\n\r\n### Authors and Contributors\r\nSYN(@rocknio)\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
